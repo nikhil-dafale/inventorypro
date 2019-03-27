@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    <div class="add_buttons">
+
+       <div class="button-group">
+           <a href="{%  url 'display_metals' %}" class="btn btm-primary btn-md btn-trim" role="button">metals</a>
+
+           <a href="{%  url 'add_metals' %}" class="btn btn-warning btn-sm btn-pad" role="button">+</a>
+
+           <a href="{%  url 'display_plastics' %}" class="btn btm-primary btn-md btn-trim" role="button">plastics</a>
+
+           <a href="{%  url 'add_plastics' %}" class="btn btn-warning btn-sm btn-pad" role="button">+</a>
+
+           <a href="{%  url 'display_composites' %}" class="btn btm-primary btn-md btn-trim" role="button">composites</a>
+
+           <a href="{%  url 'add_composites' %}" class="btn btn-warning btn-sm btn-pad" role="button">+</a>
+
+       </div>
+
+    </div>
+
+
+  <div>
+    <h4>Currently Viewing {{ header }}</h4>
+  </div>
+
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>id</th>
+        <th>Type</th>
+        <th>Date</th>
+        <th>Price</th>
+        <th>Status</th>
+        <th>Issues</th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+
+      {% for item in items %}
+
+      <tr>
+          <td>{{ item.pk }}</td>
+        <td>{{ item.type }}</td>
+        <td>{{ item.date }}</td>
+        <td>{{ item.price }} </td>
+        <td>{{ item.status }}</td>
+        <td>{{ item.issues }}</td>
+
+        {% if header|lower == "metals" %}
+        <td>
+            <a href="{% url 'edit_metals' item.pk %}" class="btn btn-warning btn-sm" role="button" aria-pressed="true" > Edit</a>
+            <a href="{% url 'delete_metals' item.pk%}" class="btn btn-danger btn-sm" role="button" aria-pressed="true" > Delete</a>
+        </td>
+        {% elif header|lower == "plastics" %}
+        <td>
+            <a href="{% url 'edit_plastics' item.pk %}" class="btn btn-warning btn-sm" role="button" aria-pressed="true" > Edit</a>
+            <a href="{% url 'delete_plastics' item.pk%}" class="btn btn-danger btn-sm" role="button" aria-pressed="true" > Delete</a>
+        </td>
+        {% elif header|lower == "composites" %}
+        <td>
+            <a href="{% url 'edit_composites' item.pk %}" class="btn btn-warning btn-sm" role="button" aria-pressed="true" > Edit</a>
+            <a href="{% url 'delete_composites' item.pk%}" class="btn btn-danger btn-sm" role="button" aria-pressed="true" > Delete</a>
+        </td>
+        {% endif %}
+
+
+      </tr>
+
+      {% endfor %}
+    </tbody>
+  </table>
+
+
+{% endblock %}
